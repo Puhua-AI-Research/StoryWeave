@@ -113,9 +113,9 @@ StoryWeave 是一款面向内容创作者的 AI 短剧创作 SaaS 平台，提�
 | 数据库 | PostgreSQL | 15.x+ | 功能强大，支持 JSON 字段 |
 | 文件存储 | MinIO / S3 | - | 对象存储，适合图片视频 |
 | 实时通信 | FastAPI WebSocket | - | 原生 WebSocket 支持 |
-| AI 集成 | LangChain | 0.1.x+ | AI 工作流编排 |
+| AI 集成 | LangChain | 最新的 | AI 工作流编排 |
 | 认证授权 | python-jose | 3.x+ | JWT Token 认证 |
-| API 文档 | FastAPI 内置 | - | 自动生成 OpenAPI/Swagger 文档 |
+| API 文档 | FastAPI 内置 | - | 自动生成 openAPI/Swagger 文档 |
 | 监控日志 | Sentry | - | 错误追踪和性能监控 |
 
 #### 基础设施
@@ -668,11 +668,10 @@ async def process_video_generation(task_id: str, config: dict):
 #### 3.1.2 核心功能
 
 **用户注册**
-- 账号密码注册（用户名/邮箱 + 密码）
-- 邮箱验证（可选）
+- 手机号注册（手机号 + 密码）
 
 **用户登录**
-- 账号密码登录（用户名/邮箱 + 密码）
+- 手机号登录（手机号 + 密码）
 - JWT Token 认证
 
 **权限管理**
@@ -1507,8 +1506,8 @@ async def save_ai_api_key(
 ```
 ┌─────────────────────┐
 │  注册/登录           │
-│  - 账号密码注册      │
-│  - 账号密码登录      │
+│  - 手机号注册        │
+│  - 手机号登录        │
 └──────────┬──────────┘
            ↓
 ┌─────────────────────┐
@@ -1613,9 +1612,9 @@ async def save_ai_api_key(
 ```
 字段：
 - id: UUID
-- username: 用户名（唯一）
-- email: 邮箱（唯一）
+- phone: 手机号（唯一）
 - password: 密码（加密存储）
+- nickname: 昵称
 - avatar: 头像 URL
 - role: 角色（admin/creator/viewer）
 - plan: 订阅套餐（free/pro/enterprise）
@@ -1881,7 +1880,7 @@ User ────┬─── Project ────┬─── Novel
 
 #### 认证方案
 
-- **方式**: 账号密码 (用户名/邮箱 + 密码)
+- **方式**: 手机号注册 (手机号 + 密码)
 - **加密**: bcrypt/argon2
 - **Token**: JWT
 - **有效期**: 7 天（可刷新）
@@ -2215,7 +2214,7 @@ npm run dev
 
 #### A.2 用户使用流程
 
-**1. 注册**: 用户名/邮箱 + 密码
+**1. 注册**: 手机号 + 密码
 
 **2. 配置 API Key**: 访问 https://ph8.co → 获取密钥 → 系统设置填写 → 测试连接
 
